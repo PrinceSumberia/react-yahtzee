@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Die.css';
 
 class Die extends Component {
+	static defaultProps = {
+		numberWords: [ 'one', 'two', 'three', 'four', 'five', 'six' ]
+	};
 	// ---------------- Without using Arrow Function ---------------
 	// constructor(props) {
 	// 	super(props);
@@ -11,15 +14,10 @@ class Die extends Component {
 	// 	this.props.handleClick(this.props.idx);
 	// }
 	render() {
-		return (
-			<button
-				className={'Die'}
-				style={{ backgroundColor: this.props.locked ? 'grey' : 'black' }}
-				onClick={() => this.props.handleClick(this.props.idx)}
-			>
-				{this.props.val}
-			</button>
-		);
+		const { numberWords, locked, val, disabled } = this.props;
+		let classes = `Die fas fa-dice-${numberWords[val - 1]} fa-4x `;
+		if (locked) classes += 'Die-locked';
+		return <i className={classes} disabled={disabled} onClick={() => this.props.handleClick(this.props.idx)} />;
 	}
 }
 
